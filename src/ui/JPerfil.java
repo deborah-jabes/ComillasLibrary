@@ -18,6 +18,10 @@ public class JPerfil extends JFrame {
     ArrayList<String> listVars = new ArrayList<>();
 
 
+    /**
+     * Constructor of the Perfil.java class
+     * @param usuario user who logged in previously
+     */
     public JPerfil (String usuario) {
         super("Profile");
 
@@ -91,6 +95,8 @@ public class JPerfil extends JFrame {
         Container container = createForm(labels, variables,10,10,10,10);
 
 
+        //TODO put the button to the south of page
+
         salir = new JButton("Salir");
 
         salir.addActionListener(new ActionListener() {
@@ -100,15 +106,11 @@ public class JPerfil extends JFrame {
                 new JOpciones(usuario);
             }
         });
-
         pnlCenter.add(salir,BorderLayout.SOUTH);
 
         this.setContentPane(container);
         this.pack();
         this.add(pnlCenter, BorderLayout.CENTER);
-
-
-
 
 
         //Ventana
@@ -119,6 +121,10 @@ public class JPerfil extends JFrame {
 
     }
 
+    /**
+     * Main method of the Perfil.java class
+     * @param args arguments to start the main method of the class
+     */
     public static void main(String[] args) {
         new JPerfil("default");
     }
@@ -256,9 +262,6 @@ public class JPerfil extends JFrame {
                         xPadSpring)));
         consParent.setConstraint("South",
                 Spring.sum(maxHeightSpring, yPadSpring));
-
-
-
 
         return parent;
     }
