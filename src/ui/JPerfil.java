@@ -90,6 +90,7 @@ public class JPerfil extends JFrame {
 
         // Initialize the panel and the corresponding layout
         JPanel pnlCenter = new JPanel();
+        JPanel pnlSouth = new JPanel();
 
         // Call the method that does all the layout work
         Container container = createForm(labels, variables,10,10,10,10);
@@ -106,11 +107,12 @@ public class JPerfil extends JFrame {
                 new JOpciones(usuario);
             }
         });
-        pnlCenter.add(salir,BorderLayout.SOUTH);
+        pnlSouth.add(salir);
 
         this.setContentPane(container);
         this.pack();
         this.add(pnlCenter, BorderLayout.CENTER);
+        this.add(pnlSouth,BorderLayout.SOUTH);
 
 
         //Ventana
