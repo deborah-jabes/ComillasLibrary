@@ -111,8 +111,8 @@ public class JPerfil extends JFrame {
 
         this.setContentPane(container);
         this.pack();
-        this.add(pnlCenter, BorderLayout.CENTER);
-        this.add(pnlSouth,BorderLayout.SOUTH);
+        getContentPane().add(pnlCenter,BorderLayout.CENTER);
+        getContentPane().add(pnlSouth,BorderLayout.SOUTH);
 
 
         //Ventana
