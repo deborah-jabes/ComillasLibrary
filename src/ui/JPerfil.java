@@ -28,19 +28,29 @@ public class JPerfil extends JFrame {
         labels[3] = new JLabel("E-mail address");
 
 
+
+        // Make the labels go bold
+        for (JLabel label : labels) {
+            Font f = label.getFont();
+            label.setFont(f.deriveFont(f.getStyle() ^ Font.BOLD));
+        }
+
+
         Client cl = new Client();
 
         for (int i = 0; i <= numVars ; ++i) {
             HashMap<String, Object> map = new HashMap<>();
 
             map.put("table", "listausuarios");
-            map.put("condicion", "username='jonhathan'");
+            map.put("condicion", "username='" + usuario + "'");
             map.put("columna", i);
 
             cl.enviar("/getColumnInfo", map);
 
             String respuestaUsername = map.get("Respuesta").toString();
+
             String formatted_resp = respuestaUsername.substring(respuestaUsername.indexOf("=")+1, respuestaUsername.indexOf('}'));
+            // System.out.println("RESPUESTA " + formatted_resp);
 
             if (!formatted_resp.equals("{")){
                 listVars.add(formatted_resp);
@@ -55,7 +65,16 @@ public class JPerfil extends JFrame {
 
         // Put the values for the selected user to form the labels
         for (int i = 0; i < listVars.size(); ++i){
+
             variables[i] = new JLabel(listVars.get(i));
+
+            if (variables[i].getText().equals("null")) {
+                variables[i] = new JLabel("Not provided");
+            }
+            else if (labels[i].getText().equals("Password")) {
+                variables[i] = new JLabel("******");
+            }
+            // System.out.println("variables in variables list " + variables[i].getText());
         }
 
 
@@ -69,28 +88,35 @@ public class JPerfil extends JFrame {
         JPanel pnlCenter = new JPanel();
 
         // Call the method that does all the layout work
-        Container container = createForm(labels, variables,5,5,5,5);
+        Container container = createForm(labels, variables,10,10,10,10);
 
+
+        salir = new JButton("Salir");
+
+        salir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                dispose();
+                new JOpciones(usuario);
+            }
+        });
+
+        pnlCenter.add(salir,BorderLayout.SOUTH);
 
         this.setContentPane(container);
         this.pack();
         this.add(pnlCenter, BorderLayout.CENTER);
 
 
+
+
+
         //Ventana
-        this.setSize(800,800);
+        this.setSize(400,400);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
 
 
-
-        salir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                dispose();
-                new JLogin();
-            }
-        });
     }
 
     public static void main(String[] args) {
@@ -114,11 +140,9 @@ public class JPerfil extends JFrame {
      *
      * @param leftComponents the components in the left column
      *                (the first item of each pair);
-     *                typically these are labels
      *
      * @param rightComponents the components in the right column
-     *                (the second item of each pair);
-     *                typically these are text fields
+     *                (the second item of each pair)
      *
      */
     private static Container createForm(Component[] leftComponents,
@@ -232,6 +256,9 @@ public class JPerfil extends JFrame {
                         xPadSpring)));
         consParent.setConstraint("South",
                 Spring.sum(maxHeightSpring, yPadSpring));
+
+
+
 
         return parent;
     }
