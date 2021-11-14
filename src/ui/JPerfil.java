@@ -11,7 +11,7 @@ import dtc.isw.client.Client;
 
 public class JPerfil extends JFrame {
     JButton modificar;
-    JButton salir;
+    JButton volver;
     int numVars = 4;
     JLabel[] labels = new JLabel[numVars];
     JLabel[] variables = new JLabel[numVars];
@@ -23,7 +23,7 @@ public class JPerfil extends JFrame {
      * @param usuario user who logged in previously
      */
     public JPerfil (String usuario) {
-        super("Profile");
+        super("Perfil");
 
         // Initialize variables
         labels[0] = new JLabel("Username");
@@ -42,6 +42,7 @@ public class JPerfil extends JFrame {
 
         Client cl = new Client();
 
+        // Make the requests to get all the columns we want from the database
         for (int i = 0; i <= numVars ; ++i) {
             HashMap<String, Object> map = new HashMap<>();
 
@@ -51,10 +52,9 @@ public class JPerfil extends JFrame {
 
             cl.enviar("/getColumnInfo", map);
 
+            // Parse the response so that it fits to our requirements
             String respuestaUsername = map.get("Respuesta").toString();
-
             String formatted_resp = respuestaUsername.substring(respuestaUsername.indexOf("=")+1, respuestaUsername.indexOf('}'));
-            // System.out.println("RESPUESTA " + formatted_resp);
 
             if (!formatted_resp.equals("{")){
                 listVars.add(formatted_resp);
@@ -78,7 +78,7 @@ public class JPerfil extends JFrame {
             else if (labels[i].getText().equals("Password")) {
                 variables[i] = new JLabel("******");
             }
-            // System.out.println("variables in variables list " + variables[i].getText());
+
         }
 
 
@@ -89,27 +89,33 @@ public class JPerfil extends JFrame {
 
 
         // Initialize the panel and the corresponding layout
-        //JPanel pnlCenter = new JPanel();
+        JPanel title = new JPanel();
         JPanel pnlSouth = new JPanel();
 
         // Call the method that does all the layout work
         JPanel form = createForm(labels, variables,10,10,10,10);
 
 
-        salir = new JButton("Salir");
+        volver = new JButton("Volver atrás");
 
-        salir.addActionListener(new ActionListener() {
+        volver.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 dispose();
                 new JOpciones(usuario);
             }
         });
-        pnlSouth.add(salir);
+        pnlSouth.add(volver);
+
+        JLabel titlePage = new JLabel("Perfil de " + usuario);
+
+        title.add(titlePage);
+        title.setBackground(Color.cyan);
 
 
 
         this.pack();
+        getContentPane().add(title, BorderLayout.NORTH);
         getContentPane().add(form, BorderLayout.CENTER);
         getContentPane().add(pnlSouth,BorderLayout.SOUTH);
 
