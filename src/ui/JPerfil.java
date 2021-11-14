@@ -9,6 +9,9 @@ import java.util.HashMap;
 
 import dtc.isw.client.Client;
 
+/**
+ * JPerfil class : displays the user's profile
+ */
 public class JPerfil extends JFrame {
     JButton modificar;
     JButton volver;
@@ -30,8 +33,6 @@ public class JPerfil extends JFrame {
         labels[1] = new JLabel("Password");
         labels[2] = new JLabel("Sitios reserved");
         labels[3] = new JLabel("E-mail address");
-
-
 
         // Make the labels go bold
         for (JLabel label : labels) {
@@ -112,8 +113,6 @@ public class JPerfil extends JFrame {
         title.add(titlePage);
         title.setBackground(Color.cyan);
 
-
-
         this.pack();
         getContentPane().add(title, BorderLayout.NORTH);
         getContentPane().add(form, BorderLayout.CENTER);
@@ -130,6 +129,7 @@ public class JPerfil extends JFrame {
 
     /**
      * Main method of the Perfil.java class
+     * Uses the default user to build the JFrame
      * @param args arguments to start the main method of the class
      */
     public static void main(String[] args) {
@@ -159,9 +159,9 @@ public class JPerfil extends JFrame {
      *
      */
     private static JPanel createForm(Component[] leftComponents,
-                                        Component[] rightComponents,
-                                        int initialX, int initialY,
-                                        int xPad, int yPad) {
+                                     Component[] rightComponents,
+                                     int initialX, int initialY,
+                                     int xPad, int yPad) {
         SpringLayout layout = new SpringLayout();
         int numRows = Math.max(leftComponents.length, rightComponents.length);
 
