@@ -89,14 +89,12 @@ public class JPerfil extends JFrame {
 
 
         // Initialize the panel and the corresponding layout
-        JPanel pnlCenter = new JPanel();
+        //JPanel pnlCenter = new JPanel();
         JPanel pnlSouth = new JPanel();
 
         // Call the method that does all the layout work
-        Container container = createForm(labels, variables,10,10,10,10);
+        JPanel form = createForm(labels, variables,10,10,10,10);
 
-
-        //TODO put the button to the south of page
 
         salir = new JButton("Salir");
 
@@ -109,9 +107,10 @@ public class JPerfil extends JFrame {
         });
         pnlSouth.add(salir);
 
-        this.setContentPane(container);
+
+
         this.pack();
-        getContentPane().add(pnlCenter,BorderLayout.CENTER);
+        getContentPane().add(form, BorderLayout.CENTER);
         getContentPane().add(pnlSouth,BorderLayout.SOUTH);
 
 
@@ -153,7 +152,7 @@ public class JPerfil extends JFrame {
      *                (the second item of each pair)
      *
      */
-    private static Container createForm(Component[] leftComponents,
+    private static JPanel createForm(Component[] leftComponents,
                                         Component[] rightComponents,
                                         int initialX, int initialY,
                                         int xPad, int yPad) {
@@ -252,6 +251,7 @@ public class JPerfil extends JFrame {
             lastConsL = consL;
             lastConsR = consR;
         }  // end of for loop
+
 
         // Wire up the east/south of the container so that the its preferred
         // size is valid.  The east spring is the distance to the right
